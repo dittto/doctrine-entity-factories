@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetadataFactory;
 class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory implements EntityFactoryAware
 {
     /** @var EntityFactoryInterface[] */
-    private $entityFactories;
+    private $entityFactories = [];
 
     /** @var EntityManagerInterface */
     private $em;
