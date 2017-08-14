@@ -1,0 +1,19 @@
+{
+  "name": "dittto/doctrine-entity-factories",
+  "description": "Allows doctrine to pull entities from factories instead of just reflection",
+  "authors" : [{
+    "name" : "Nick Stacey",
+    "email" : "nick@ditt.to"
+  }],
+  "keywords" : ["doctrine", "entity", "orm", "symfony", "laravel", "data-mapper", "factory"],
+  "license" : ["MIT"],
+  "require-dev" : {
+    "phpunit/phpunit": "^5.7",
+    "symfony/dependency-injection": "^3.0",
+    "symfony/http-foundation": "^3.0",
+    "sensio/framework-extra-bundle": "^3.0"
+  },
+  "autoload" : {
+    "psr-4" : {"Dittto\\DoctrineEntityFactories\\" : "src/"}
+  }
+}
