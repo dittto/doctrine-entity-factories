@@ -10,6 +10,17 @@ use LaravelDoctrine\ORM\DoctrineServiceProvider;
 
 abstract class AbstractDoctrineServiceProvider extends DoctrineServiceProvider
 {
+    public $defer = true;
+
+    public function provides()
+    {
+        return [
+            'em',
+            'registry',
+            MetaDataManager::class,
+        ];
+    }
+
     public function register()
     {
         parent::register();
