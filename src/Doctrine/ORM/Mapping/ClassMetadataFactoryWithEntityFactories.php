@@ -28,4 +28,12 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
     {
         $this->entityFactories[$name] = $entityFactory;
     }
+
+    /**
+     * @return EntityFactoryInterface[]
+     */
+    public function getEntityFactories(): array
+    {
+        return $this->entityFactories;
+    }
 }
