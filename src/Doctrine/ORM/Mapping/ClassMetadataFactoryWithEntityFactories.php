@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetadataFactory;
 class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory implements EntityFactoryAware
 {
     /** @var EntityFactoryInterface[] */
-    private $entityFactories = [];
+    public static $entityFactories = [];
 
     /** @var EntityManagerInterface */
     private $em;
@@ -21,12 +21,12 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
 
     protected function newClassMetadataInstance($className): ClassMetadata
     {
-        return new ClassMetadataWithEntityFactories($className, $this->em->getConfiguration()->getNamingStrategy(), $this->entityFactories);
+        return new ClassMetadataWithEntityFactories($className, $this->em->getConfiguration()->getNamingStrategy(), $this->getEntityFactories());
     }
 
     public function addEntityFactory(string $name, EntityFactoryInterface $entityFactory): void
     {
-        $this->entityFactories[$name] = $entityFactory;
+        self::$entityFactories[$name] = $entityFactory;
     }
 
     /**
@@ -34,6 +34,6 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
      */
     public function getEntityFactories(): array
     {
-        return $this->entityFactories;
+        return self::$entityFactories;
     }
 }

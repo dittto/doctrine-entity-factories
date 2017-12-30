@@ -139,3 +139,12 @@ services:
 It's here we'll use the `calls` definition to add in as many entity factories as we require. The first field is the full class name of the entity to be created by the factory.
 
 The namespaces here look non-standard for Symfony, but that's purely to tie into the example above.
+
+## Testing
+
+This plugin comes with it's own tests. To run these, clone the code and navigate to the directory. Then run the following:
+
+```bash
+composer install
+./vendor/bin/phpunit
+```
