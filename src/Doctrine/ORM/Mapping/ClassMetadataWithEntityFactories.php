@@ -23,4 +23,9 @@ class ClassMetadataWithEntityFactories extends ClassMetadata
 
         return parent::newInstance();
     }
+
+    public function setFactories(array $entityFactories): void
+    {
+        $this->entityFactories = $entityFactories;
+    }
 }

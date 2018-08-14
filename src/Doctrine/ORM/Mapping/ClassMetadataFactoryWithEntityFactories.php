@@ -1,7 +1,9 @@
 <?php
+
 namespace Dittto\DoctrineEntityFactories\Doctrine\ORM\Mapping;
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\Mapping\ReflectionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataFactory;
 
@@ -13,7 +15,7 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
     /** @var EntityManagerInterface */
     private $em;
 
-    public function setEntityManager(EntityManagerInterface $em)
+    public function setEntityManager(EntityManagerInterface $em): void
     {
         parent::setEntityManager($em);
         $this->em = $em;
@@ -21,7 +23,11 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
 
     protected function newClassMetadataInstance($className): ClassMetadata
     {
-        return new ClassMetadataWithEntityFactories($className, $this->em->getConfiguration()->getNamingStrategy(), $this->getEntityFactories());
+        return new ClassMetadataWithEntityFactories(
+            $className,
+            $this->em->getConfiguration()->getNamingStrategy(),
+            $this->getEntityFactories()
+        );
     }
 
     public function addEntityFactory(string $name, EntityFactoryInterface $entityFactory): void
@@ -35,5 +41,14 @@ class ClassMetadataFactoryWithEntityFactories extends ClassMetadataFactory imple
     public function getEntityFactories(): array
     {
         return self::$entityFactories;
+    }
+
+
+    protected function wakeupReflection(ClassMetadata $class, ReflectionService $reflService): void
+    {
+        parent::wakeupReflection($class, $reflService);
+        if ($class instanceof ClassMetadataWithEntityFactories) {
+            $class->setFactories(self::$entityFactories);
+        }
     }
 }
